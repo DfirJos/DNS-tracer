@@ -1,4 +1,4 @@
-﻿<#
+<#
 
 .SYNOPSIS
 This script displays DNS events from the DNS Server analytical event log.
@@ -13,8 +13,8 @@ https://docs.microsoft.com/en-us/previous-versions/windows/it-pro/windows-server
 A module also needs to be installed: 'PoshRSJob' https://github.com/proxb/PoshRSJob
 
 .EXAMPLE
-DNS-tracer.ps1 -last 100m
-Running the script as above example, shows all DNS events from the last 100 minutes.
+DNS-tracer.ps1 -last 100m -search 'example.com'
+Running the script as above example, shows all DNS events related to 'example.com' from the last 100 minutes.
 
 - s is Seconds
 - m is Minutes
@@ -24,9 +24,6 @@ Running the script as above example, shows all DNS events from the last 100 minu
 DNS-tracer.ps1 -starttime "11/21/2019 12:41 AM" -endtime "11/21/2019 12:50 AM"
 Above command provides all DNS events within the given timeperiod.
 
-.EXAMPLE
-DNS-tracer.ps1 -last 100m | where-object QNAME -match example.com 
-Above command displays all dns events related to the domainname 'example.com'
 
 .EXAMPLE
 DNS-tracer.ps1 -computer dc01, dns-01
@@ -54,7 +51,10 @@ Param (
     [DateTime]$endtime = (Get-Date),
 
     [Parameter(Mandatory=$false)]
-    [String[]]$computerlist = $null
+    [String[]]$computerlist = $null,
+
+    [Parameter(Mandatory=$false)]
+    [String[]]$search = ""
 )
 
 $Id = 256,257,260
@@ -106,7 +106,9 @@ if ($Computerlist) {
 
             Get-WinEvent -Oldest -FilterHashTable @{path=$Using:path; Id=$Using:Id;starttime=$Using:starttime; endtime=$Using:endtime} -ComputerName $_ -ErrorAction Stop | 
         
-                select MachineName, Id, TimeCreated, Message | 
+                select MachineName, Id, TimeCreated, Message |
+
+                where Message -match $Using:search |
             
                 ForEach {
 
@@ -142,7 +144,7 @@ if ($Computerlist) {
                     Port = $Port
                     Type = $Type
                 } 
-            }
+            } 
     
        } 
        
@@ -156,13 +158,17 @@ if ($Computerlist) {
                 
                 Write-Output "`nDid you run the script with arguments?`n`n.\DNS-tracer.ps1 -last 10m    #Display all DNS-events of last 10 minutes"
 
-            }
+            } 
 
-    } else {
+        } elseif ($_.Exception -match "The RPC server is unavailable") {
         
-        Write-Warning "$Using:ComputerName - $_" 
+            Write-Warning "$Using:ComputerName - $_" 
     
-    }
-} 
+        } else {
+
+            Write-Warning $_
+
+        }
+    } 
 
 } | Wait-RSJob | Receive-RSJob
