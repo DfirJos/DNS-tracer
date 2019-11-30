@@ -1,5 +1,5 @@
 # DNS-tracer
-This script helps analysts to trace internal endpoints that are querying specific domains, such as the domain of a command and control center. It is not uncommon for analysts to only have an alert which states the Source IP address of the DNS-server as the culprit, while actually the culprit is an endpoint behind the DNS-server. This PowerShell script uses Microsoft Event Trace Log (ETL) files to trace the true origin.
+This script helps analysts to trace internal endpoints that are querying specific domains, such as the domain of a command and control center. When there is no proper set-up in place, this can be hard. It is not uncommon for analysts to have an alert that states the Source IP address of the DNS-server as the culprit, while actually the culprit is an endpoint behind the DNS-server. This PowerShell script uses Microsoft Event Trace Log (ETL) files to trace the true origin.
 
 ## Prerequisites
 
