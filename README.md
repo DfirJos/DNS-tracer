@@ -20,6 +20,13 @@ Display all DNS events of the last 100 minutes on multiple servers:
 ```
 DNS-tracer.ps1 -computer dc01, dns01 -last 100m
 ```
+
+Display all DNS events in the last minute regarding 'example':
+
+```
+DNS-tracer.ps1 -computer dc01, dns01 -last 1m -search 'example'
+```
+
 ![Image](/Images/Example.png)
 
 Display DNS events related to 'example.com' in the given timeperiod:
