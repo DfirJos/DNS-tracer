@@ -16,13 +16,13 @@ If not installed, you have to install it and reboot your server. An "How To" is 
 
 ## Quick start
 
-Display all DNS events on server DC01 and DNS01 of the last 100 minutes: 
+Display all DNS events of the last 100 minutes on multiple servers:
 ```
 DNS-tracer.ps1 -computer dc01, dns01 -last 100m
 ```
+![Image](/Images/Example.png)
 
-Display DNS events related to 'example.com' in the given timeperiod 
+Display DNS events related to 'example.com' in the given timeperiod:
 ```
 DNS-tracer.ps1 -starttime "11/21/2019 12:41 AM" -endtime "11/21/2019 12:50 AM" -search example.com 
 ```
-![Image](/Images/Example.png)
