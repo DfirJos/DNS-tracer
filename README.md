@@ -25,3 +25,4 @@ Display DNS events related to 'example.com' in the given timeperiod
 ```
 DNS-tracer.ps1 -starttime "11/21/2019 12:41 AM" -endtime "11/21/2019 12:50 AM" -search example.com 
 ```
+![Image](../Images/Example.png)
