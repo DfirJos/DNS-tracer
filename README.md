@@ -14,17 +14,35 @@ If not installed, you have to install it and reboot your server. An "How To" is 
 
 2) Enable Enhanced DNS Logging and Diagnostics (see above URL)
 
+3) If you want to query remote computers, you can choose if you want to use PowerShell remoting or RPC/TCP.
+
+Configure PowerShell remoting 
+
+Open proper ports on DNS-server for querying Event Log service with RPC/TCP, whereas the IP address points to the system where this script will be launched on:
+- Get-NetFirewallRule | where DisplayName -like  '*Event Log*' | Enable-NetFirewallRule | Set-NetFireWallRule -RemoteAddress 192.168.2.240
+
+
 ## Quick start
+
+Display DNS events on the local computer of the last 2 days (default value).
+```
+DNS-tracer.ps1
+```
 
 Display all DNS events of the last 100 minutes on multiple servers:
 ```
-DNS-tracer.ps1 -computer dc01, dns01 -last 100m
+DNS-tracer.ps1 -ComputerName dc01, dns01 -last 100m
 ```
 
-Display all DNS events in the last minute regarding 'example':
+It also works with a list of computernames
+```
+DNS-tracer.ps1 -ComputerList D:\computernames.txt
+```
+
+Display all DNS events in the last 2 minutes regarding 'example':
 
 ```
-DNS-tracer.ps1 -computer dc01, dns01 -last 1m -search 'example'
+DNS-tracer.ps1 -ComputerName dc01, dns01 -last 2m -search 'example'
 ```
 
 ![Image](/Images/Example.png)
@@ -33,3 +51,10 @@ Display DNS events related to 'example.com' in the given timeperiod:
 ```
 DNS-tracer.ps1 -starttime "11/21/2019 12:41 AM" -endtime "11/21/2019 12:50 AM" -search example.com 
 ```
+
+Run the task with PowerShell remoting in a parallel fashion. Default setting is that it runs the task of querying DNS events sequentially. The remote computers are queried with RPC/TCP.
+```
+DNS-tracer.ps1 -ComputerList D:\computernames.txt -WinRM
+```
+
+
