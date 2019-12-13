@@ -54,7 +54,7 @@ Display DNS events related to 'example.com' in the given timeperiod:
 DNS-tracer.ps1 -starttime "11/21/2019 12:41 AM" -endtime "11/21/2019 12:50 AM" -search example.com 
 ```
 
-Run the task with PowerShell remoting in a parallel fashion. Default setting is that it runs the task of querying DNS events sequentially. The remote computers are queried with RPC/TCP.
+Run the task with PowerShell remoting in a parallel fashion. Default setting is that it runs the task of querying DNS events sequentially, it queries the remote computers over RPC/TCP.
 ```
 DNS-tracer.ps1 -ComputerList D:\computernames.txt -WinRM
 ```
