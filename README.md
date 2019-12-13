@@ -1,5 +1,5 @@
 # DNS-tracer
-This PowerShell script helps analysts track down internal endpoints that are querying (for example) malicious domains. It can be hard for analysts to trace internal endpoints that are querying malicious domains solely based on an alert, especially when there is no proper set-up in place that can help with this. It is not uncommon that the triggered alert states the Source IP address of the DNS-server as the culprit that is querying malicious domains, while actually the true source is an endpoint behind the DNS-server. 
+This PowerShell script helps analysts track down internal endpoints that are querying (for example) malicious domains. It can be hard for analysts to track these endpoints solely based on an alert, especially when there is no proper set-up in place that can help with this. It is not uncommon that the triggered alert states the Source IP address of the DNS-server as the culprit that is querying malicious domains, while actually the true source is an endpoint behind the DNS-server. 
 
 ## Prerequisites
 
