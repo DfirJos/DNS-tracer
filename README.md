@@ -16,11 +16,11 @@ If not installed, you have to install it and reboot your server. An "How To" is 
 
 2) Enable Enhanced DNS Logging and Diagnostics (see above URL)
 
-3) If you want to query remote computers, you can choose if you want to use PowerShell remoting or RPC/TCP.
+3) If you want to query remote computers, you can choose if you want to use PowerShell remoting or RPC/TCP (the latter is default setting).
 
-Configure PowerShell remoting 
+Configure PowerShell remoting if you plan on using it to run the script: https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/enable-psremoting?view=powershell-6
 
-Open proper ports on DNS-server for querying Event Log service with RPC/TCP, whereas the IP address points to the system where this script will be launched on:
+The other option is to run the script over RPC/TCP, enable these ports on the DNS server(s), whereas the IP address points to the system where this script will be launched on:
 
 ```
 Get-NetFirewallRule | where DisplayName -like  '*Event Log*' | Enable-NetFirewallRule | Set-NetFireWallRule -RemoteAddress 192.168.2.240
