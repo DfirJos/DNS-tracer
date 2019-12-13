@@ -19,8 +19,10 @@ If not installed, you have to install it and reboot your server. An "How To" is 
 Configure PowerShell remoting 
 
 Open proper ports on DNS-server for querying Event Log service with RPC/TCP, whereas the IP address points to the system where this script will be launched on:
-- Get-NetFirewallRule | where DisplayName -like  '*Event Log*' | Enable-NetFirewallRule | Set-NetFireWallRule -RemoteAddress 192.168.2.240
 
+```
+Get-NetFirewallRule | where DisplayName -like  '*Event Log*' | Enable-NetFirewallRule | Set-NetFireWallRule -RemoteAddress 192.168.2.240
+```
 
 ## Quick start
 
